@@ -1,0 +1,153 @@
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>School Ops Simulation – โรงเรียนชุมชนมาบอำมฤต</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>🏫 School Ops Simulation</h1>
+      <p>เกมจำลองการบริหารงานทั่วไป – โรงเรียนชุมชนมาบอำมฤต</p>
+    </div>
+    <div class="header-meta">
+      <div>โหมด: Simulation</div>
+      <div>สถานศึกษา: โรงเรียนชุมชนมาบอำมฤต</div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- แผนผังโรงเรียน -->
+    <section class="panel">
+      <h2>แผนผังโรงเรียน</h2>
+      <p class="subtitle">แตะอาคารเพื่อดูเฉพาะงานแจ้งซ่อมของอาคารนั้น</p>
+      <div id="buildingGrid" class="building-grid">
+        <!-- เติมด้วย JS -->
+      </div>
+    </section>
+
+    <!-- บอร์ดงานแจ้งซ่อม -->
+    <section class="panel">
+      <div class="panel-header-row">
+        <div>
+          <h2>บอร์ดงานแจ้งซ่อม</h2>
+          <p class="subtitle">บริหารลำดับความสำคัญและทีมซ่อม</p>
+        </div>
+        <button id="btnNewIncident" class="btn btn-secondary">
+          + สุ่มงานใหม่
+        </button>
+      </div>
+
+      <div id="incidentList" class="incident-list">
+        <!-- เติมด้วย JS -->
+      </div>
+    </section>
+
+    <!-- ห้องควบคุม (Simulation Control) -->
+    <section class="panel">
+      <h2>ห้องควบคุม (Control Room)</h2>
+
+      <div class="stat-card">
+        <div class="stat-row">
+          <span>เวลาในเกม</span>
+          <strong id="simTime">วัน 1 – 08:00</strong>
+        </div>
+        <div class="stat-row">
+          <span>งบประมาณ</span>
+          <strong id="budget">฿ 0</strong>
+        </div>
+        <div class="stat-row">
+          <span>คะแนน (Score)</span>
+          <strong id="score">0</strong>
+        </div>
+        <div class="stat-row">
+          <span>ความเสี่ยงสะสม (Risk)</span>
+          <strong id="risk">0.0</strong>
+        </div>
+        <div class="stat-row">
+          <span>งานคงค้าง</span>
+          <strong id="openCount">0</strong>
+        </div>
+      </div>
+
+      <div class="control-buttons">
+        <button id="btnAdvanceHour" class="btn btn-primary">
+          ข้ามเวลา +1 ชั่วโมง
+        </button>
+        <button id="btnAdvanceDay" class="btn btn-outline">
+          ข้ามเวลา +1 วัน
+        </button>
+      </div>
+
+      <h3>ทีมช่างซ่อม</h3>
+      <div id="teamList" class="team-list">
+        <!-- เติมด้วย JS -->
+      </div>
+
+      <h3>สร้างงานแจ้งซ่อมเอง</h3>
+      <form id="manualForm" class="manual-form">
+        <label>
+          อาคาร
+          <select id="manualBuilding"></select>
+        </label>
+        <label>
+          รายละเอียดปัญหา
+          <input id="manualDesc" type="text" placeholder="เช่น กระเบื้องแตกหน้าห้อง ป.4/2" required>
+        </label>
+        <label>
+          ระดับความรุนแรง
+          <select id="manualSeverity">
+            <option value="Low">ต่ำ (Low)</option>
+            <option value="Medium" selected>ปานกลาง (Medium)</option>
+            <option value="High">สูง (High)</option>
+            <option value="Critical">วิกฤต (Critical)</option>
+          </select>
+        </label>
+        <label>
+          ค่าใช้จ่ายโดยประมาณ (บาท)
+          <input id="manualCost" type="number" min="0" step="100" value="2000">
+        </label>
+        <label>
+          เวลาซ่อม (ชั่วโมง)
+          <input id="manualHours" type="number" min="1" step="1" value="3">
+        </label>
+        <button type="submit" class="btn btn-secondary btn-full">
+          เพิ่มงานแจ้งซ่อม
+        </button>
+      </form>
+
+      <h3>บันทึกเหตุการณ์ (Event Log)</h3>
+      <div id="log" class="log-box">
+        <!-- เติมด้วย JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- หน้าต่างเลือกทีม / ซ่อม (Simulation Interaction) -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <h2>จัดการงานแจ้งซ่อม</h2>
+      <p id="modalIncidentTitle" class="modal-title"></p>
+      <p id="modalIncidentMeta" class="modal-meta"></p>
+
+      <h3>เลือกทีมช่าง</h3>
+      <div id="modalTeamList" class="modal-team-list">
+        <!-- เติมด้วย JS -->
+      </div>
+
+      <button id="btnCloseModal" class="btn btn-outline btn-full">
+        ปิดหน้าต่าง
+      </button>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <span>School Ops Simulation · Prototype</span>
+    <span>ออกแบบเพื่อฝึกทักษะการบริหารงานทั่วไปในโรงเรียน</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
